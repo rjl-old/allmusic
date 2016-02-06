@@ -33,6 +33,10 @@ Given an `(artist)` and an `(album)`, it:
 
 This is an early release. There are exactly three test cases. I would be stunned if it did not break at around five.
 
+## TODO
+
+1. Pick cooler test cases.
+
 ## Credits
 
 Kiyoka Nishiyama [What is fuzzy-string-match](https://github.com/kiyoka/fuzzy-string-match)
