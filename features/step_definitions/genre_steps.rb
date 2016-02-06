@@ -3,7 +3,6 @@ module KnowsTheDomain
     @allmusic ||= Allmusic.new
   end
 end
-
 World(KnowsTheDomain)
 
 
@@ -29,11 +28,8 @@ When(/^I search allmusic$/) do
   allmusic.album = @album
 end
 
-Then(/^the genre should be "([^"]*)" and$/) do |genre|
+Then(/^the genre should be "([^"]*)" and the style should be "([^"]*)"$/) do |genre, style|
   allmusic.get_meta
   expect(allmusic.genre).to eq(genre)
-end
-
-Then(/^the style should be "([^"]*)"$/) do |style|
   expect(allmusic.style).to eq(style)
 end
