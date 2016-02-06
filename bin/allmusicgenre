@@ -1,3 +1,11 @@
 #!/usr/bin/env ruby
 # allmusicgenre.rb
 $:.unshift(File.dirname(__FILE__) + '/../lib')
+
+require 'allmusicgenre'
+
+spicy = Allmusic.new "Spice Girls", "Spiceworld"
+spicy.get_meta
+
+puts spicy.genre # => "Pop/Rock"
+puts spicy.style # => "Adult Contemporary"
