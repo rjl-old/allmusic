@@ -9,9 +9,14 @@ Feature: Retrieve genre for artist/album
     When I search allmusic for the artist
     Then I should get the error "Couldn't find artist 'dfgdsfgf'"
 
-  Scenario: Get album genre from allmusic
+  Scenario Outline: Get album genres and styles from allmusic
 
-    Given the artist "ABBA" and album "Gold: Greatest Hits"
+    Given the artist "<artist>" and album "<album>"
     When I search allmusic
-    Then the genre should be "Pop/Rock" and
-    And the style should be "Contemporary Pop/Rock"
+    Then the genre should be "<genre>" and the style should be "<style>"
+
+    Examples:
+      | artist       | album               | genre       | style                  |
+      | ABBA         | Gold: Greatest Hits | Pop/Rock    | Contemporary Pop/Rock  |
+      | Shooglenifty | Whisky Kiss         | Pop/Rock    | Celtic                 |
+      | Spice Girls  | Spiceworld          | Pop/Rock    | Adult Contemporary     |
