@@ -2,7 +2,7 @@
 # allmusicgenre.rb
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
-require 'allmusicgenre'
+require 'allmusic'
 
 spicy = Allmusic.new "Spice Girls", "Spiceworld"
 spicy.get_meta
