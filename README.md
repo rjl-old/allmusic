@@ -4,7 +4,7 @@ Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
 ## Installation
 
-    gem install rjl-allmusicgenre
+    gem install rjl-allmusic
 
 ## Usage
 
