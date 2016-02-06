@@ -63,7 +63,7 @@ class Allmusic
   def make_url( root, path)
     # TODO: unsafe, not portable - File.join gives the wrong separator on windows
     # TODO: escape url
-    clean_url = File.join(root, path)
+    clean_url = URI.escape(File.join(root, path))
     return clean_url
   end
 
