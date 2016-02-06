@@ -1,1 +1,1 @@
-require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'allmusicgenre')
+require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'allmusic')
