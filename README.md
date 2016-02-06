@@ -1,4 +1,4 @@
-# Allmusicgenre
+# Allmusic
 
 Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
@@ -9,6 +9,7 @@ Get genre and style information from [allmusic.com](http://www.allmusic.com)
 ## Usage
 
     spicy = Allmusic.new "Spice Girls", "Spiceworld"
+    spicy.get_meta
     puts spicy.genre # => "Pop/Rock"
     puts spicy.style # => "Adult Contemporary"
 
