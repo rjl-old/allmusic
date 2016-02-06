@@ -29,6 +29,10 @@ Given an `(artist)` and an `(album)`, it:
 
 'Best' match is defined as the match with the highest [Jaro-Winkler distance](https://en.wikipedia.org/wiki/Jaro–Winkler_distance) from the given artist or album.
 
+## Warning
+
+This is an early release. There are exactly three test cases. I would be stunned if it did not break at around five.
+
 ## Credits
 
 Kiyoka Nishiyama [What is fuzzy-string-match](https://github.com/kiyoka/fuzzy-string-match)
