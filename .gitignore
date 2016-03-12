@@ -7,3 +7,5 @@ doc
 
 # bundler
 .bundle
+rjl-allmusic-0.2.gem
+bin/test_allmusic.rb
