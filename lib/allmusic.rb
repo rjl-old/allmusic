@@ -13,6 +13,8 @@ class Allmusic
   # @!attribute artist
   #   @return [String] Artist name
   attr_accessor :artist
+  attr_reader   :genres
+  attr_reader   :styles
   attr_reader   :genre
   attr_reader   :style
 
@@ -23,6 +25,19 @@ class Allmusic
     @album  = album
     @genre = nil
     @style = nil
+  end
+
+  # return a list of the albums genre/styles
+  # @param album_page [Nokogiri] the page node to parse
+  # @param type [String] 'genre' | 'styles'
+  # @return [string] list of genre / syles
+  def parse( album_page, type = 'genre' )
+    data = []
+    data_nodes = album_page.xpath("//div[@class='#{type}']//a")
+    data_nodes.each do |data_node|
+      data << data_node.text
+    end
+    return data
   end
 
   # Sets @genre and @style for @album, @artist
@@ -53,15 +68,25 @@ class Allmusic
       # get album page
       begin
         album_page = Nokogiri::HTML(open(album_url))
-        # get genre
-        # TODO: Improve this is there are more than one
-        @genre = album_page.xpath("//div[@class='genre']//a[1]").text
-        # get style
-        @style = album_page.xpath("//div[@class='styles']//a[1]").text
+        @genres = parse( album_page, 'genre' )
+        @styles = parse( album_page, 'styles')
+        # # get genre
+        # # TODO: Improve this is there are more than one
+        # @genre = album_page.xpath("//div[@class='genre']//a[1]").text
+        # # get style
+        # @style = album_page.xpath("//div[@class='styles']//a[1]").text
       rescue
         puts ">> ERROR: Couldn't open #{album_url} for #{@artist} / #{@album}"
       end
     end
+  end
+
+  def genre
+    return @genres[0]
+  end
+
+  def style
+    return @styles[0]
   end
 
   # @return [URL] Joins URL parts

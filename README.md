@@ -1,4 +1,4 @@
-# Allmusic 0.1
+# Allmusic 0.2
 
 Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
@@ -38,6 +38,7 @@ This is an early release. There are exactly three test cases. I would be stunned
 ## Changes
 
 0.1 Initial release
+0.2 Add 'genres' and 'styles' attributes to return list of all
 
 ## TODO
 
