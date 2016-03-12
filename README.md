@@ -1,4 +1,4 @@
-# Allmusic
+# Allmusic 0.1
 
 Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
@@ -32,6 +32,10 @@ Given an `(artist)` and an `(album)`, it:
 ## Warning
 
 This is an early release. There are exactly three test cases. I would be stunned if it did not break at around five.
+
+## Changes
+
+0.1 Initial release
 
 ## TODO
 
