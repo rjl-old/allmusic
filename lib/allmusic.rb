@@ -21,6 +21,8 @@ class Allmusic
   def initialize( artist = nil, album = nil)
     @artist = artist
     @album  = album
+    @genre = nil
+    @style = nil
   end
 
   # Sets @genre and @style for @album, @artist
@@ -47,16 +49,19 @@ class Allmusic
     album_urls = artist_discography_page.xpath("//td[@class='title']/a[1]")
     album_url = best_match(@album, album_urls)
 
-
-    # get album page
-    album_page = Nokogiri::HTML(open(album_url))
-
-    # get genre
-    # TODO: Improve this is there are more than one
-    @genre = album_page.xpath("//div[@class='genre']//a[1]").text
-
-    # get style
-    @style = album_page.xpath("//div[@class='styles']//a[1]").text
+    unless album_url.nil?
+      # get album page
+      begin
+        album_page = Nokogiri::HTML(open(album_url))
+        # get genre
+        # TODO: Improve this is there are more than one
+        @genre = album_page.xpath("//div[@class='genre']//a[1]").text
+        # get style
+        @style = album_page.xpath("//div[@class='styles']//a[1]").text
+      rescue
+        puts ">> ERROR: Couldn't open #{album_url} for #{@artist} / #{@album}"
+      end
+    end
   end
 
   # @return [URL] Joins URL parts
