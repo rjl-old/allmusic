@@ -8,6 +8,8 @@ Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
 ## Usage
 
+    require 'allmusic'
+
     spicy = Allmusic.new "Spice Girls", "Spiceworld"
     spicy.get_meta
     puts spicy.genre # => "Pop/Rock"
