@@ -42,14 +42,21 @@ class Allmusic
 
   # Sets @genre and @style for @album, @artist
   def get_meta
+    @genres = nil
+    @styles = nil
 
     # search for artist page e.g. http://www.allmusic.com/search/artists/abba
     artist_search_url = make_url(ARTIST_SEARCH_URL, @artist)
-    artist_search_page = Nokogiri::HTML(open(artist_search_url))
+    artist_search_page = nil
+    begin
+      artist_search_page = Nokogiri::HTML(open(artist_search_url))
+    rescue
+      return
+    end
 
     if no_search_result?(artist_search_page)
-      raise "Couldn't find artist '#{@artist}'"
-      exit
+      # raise "Couldn't find artist '#{@artist}'"
+      return
     end
 
     # get the url of the artist page
