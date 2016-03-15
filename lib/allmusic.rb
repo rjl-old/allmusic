@@ -2,6 +2,10 @@ require 'nokogiri'
 require 'uri'
 require 'open-uri'
 require 'fuzzystringmatch' #https://github.com/kiyoka/fuzzy-string-match
+require 'logger'
+
+file = File.open('allmusic.log', File::CREAT)
+$log = Logger.new( file )
 
 # Allmusic.com client
 # @param [String]
@@ -47,12 +51,11 @@ class Allmusic
     begin
       artist_search_page = Nokogiri::HTML(open(artist_search_url))
     rescue
-      return
+      return metadata
     end
 
     if no_search_result?(artist_search_page)
-      # raise "Couldn't find artist '#{@artist}'"
-      return
+      return metadata
     end
 
     # get the url of the artist page
@@ -74,7 +77,7 @@ class Allmusic
         metadata[:genres] = parse( album_page, 'genre' )
         metadata[:styles] = parse( album_page, 'styles')
       rescue
-        puts ">> ERROR: Couldn't open #{album_url} for #{artist} / #{album}"
+        return metadata
       end
     end
     return metadata

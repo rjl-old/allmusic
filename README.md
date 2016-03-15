@@ -39,6 +39,7 @@ This is an early release. There are exactly three test cases. I would be stunned
 0.2 Add 'genres' and 'styles' attributes to return list of all
 0.3 Improve recovery from bad searchs
 0.4 'Initialise' gets meta. Added tests. Clean code.
+0.5 Fix bug returning 'nil' metadata on failed finds.
 
 ## TODO
 
