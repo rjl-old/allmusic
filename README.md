@@ -1,4 +1,4 @@
-# Allmusic 0.4
+# Allmusic 0.5
 
 Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
