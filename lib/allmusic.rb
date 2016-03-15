@@ -7,25 +7,23 @@ require 'fuzzystringmatch' #https://github.com/kiyoka/fuzzy-string-match
 # @param [String]
 class Allmusic
 
-  # @!attribute album
-  #   @return [String] Album name
-  attr_accessor :album
-  # @!attribute artist
-  #   @return [String] Artist name
-  attr_accessor :artist
-  attr_reader   :genres
-  attr_reader   :styles
-  attr_reader   :genre
-  attr_reader   :style
-
   ARTIST_SEARCH_URL = "http://www.allmusic.com/search/artists/"
 
-  def initialize( artist = nil, album = nil)
+  def initialize( artist = nil, album = nil )
     @artist = artist
     @album  = album
-    @genre = nil
-    @style = nil
+    @metadata = get_metadata( @artist, @album )
   end
+
+  def genres
+    return @metadata[:genres]
+  end
+
+  def styles
+    return @metadata[:styles]
+  end
+
+  private
 
   # return a list of the albums genre/styles
   # @param album_page [Nokogiri] the page node to parse
@@ -41,12 +39,10 @@ class Allmusic
   end
 
   # Sets @genre and @style for @album, @artist
-  def get_meta
-    @genres = nil
-    @styles = nil
-
+  def get_metadata( artist, album )
+    metadata = {:genres => [], :styles => []}
     # search for artist page e.g. http://www.allmusic.com/search/artists/abba
-    artist_search_url = make_url(ARTIST_SEARCH_URL, @artist)
+    artist_search_url = make_url(ARTIST_SEARCH_URL, artist)
     artist_search_page = nil
     begin
       artist_search_page = Nokogiri::HTML(open(artist_search_url))
@@ -61,7 +57,7 @@ class Allmusic
 
     # get the url of the artist page
     artist_urls = artist_search_page.xpath("//ul[@class='search-results']//div[@class='name']/a")
-    artist_url = best_match(@artist, artist_urls)
+    artist_url = best_match(artist, artist_urls)
 
     # get the artist discography page
     album_search_page = make_url(artist_url, '/discography/all')
@@ -69,31 +65,19 @@ class Allmusic
 
     # get album link
     album_urls = artist_discography_page.xpath("//td[@class='title']/a[1]")
-    album_url = best_match(@album, album_urls)
+    album_url = best_match(album, album_urls)
 
     unless album_url.nil?
       # get album page
       begin
         album_page = Nokogiri::HTML(open(album_url))
-        @genres = parse( album_page, 'genre' )
-        @styles = parse( album_page, 'styles')
-        # # get genre
-        # # TODO: Improve this is there are more than one
-        # @genre = album_page.xpath("//div[@class='genre']//a[1]").text
-        # # get style
-        # @style = album_page.xpath("//div[@class='styles']//a[1]").text
+        metadata[:genres] = parse( album_page, 'genre' )
+        metadata[:styles] = parse( album_page, 'styles')
       rescue
-        puts ">> ERROR: Couldn't open #{album_url} for #{@artist} / #{@album}"
+        puts ">> ERROR: Couldn't open #{album_url} for #{artist} / #{album}"
       end
     end
-  end
-
-  def genre
-    return @genres[0]
-  end
-
-  def style
-    return @styles[0]
+    return metadata
   end
 
   # @return [URL] Joins URL parts
@@ -126,11 +110,5 @@ class Allmusic
       end
     end
     return best_url
-  end
-
-  def debug( prefix = "debug", message )
-    puts "-"*50
-    puts "#{prefix}: #{message}"
-    puts "="*50
   end
 end

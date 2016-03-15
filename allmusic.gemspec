@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'rjl-allmusic'
-  spec.version       = '0.3'
+  spec.version       = '0.4'
   spec.date          = '2016-02-06'
   spec.author        = 'Richard Lyon'
   spec.email         = 'richard@richardlyon.net'

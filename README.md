@@ -1,4 +1,4 @@
-# Allmusic 0.3
+# Allmusic 0.4
 
 Get genre and style information from [allmusic.com](http://www.allmusic.com)
 
@@ -11,9 +11,8 @@ Get genre and style information from [allmusic.com](http://www.allmusic.com)
     require 'allmusic'
 
     spicy = Allmusic.new "Spice Girls", "Spiceworld"
-    spicy.get_meta
-    puts spicy.genre # => "Pop/Rock"
-    puts spicy.style # => "Adult Contemporary"
+    puts spicy.genres # => ["Pop/Rock", "Electronic"]
+    puts spicy.styles # => ["Adult Contemporary", "Dance-Pop", "Euro-Dance", "Euro-Pop", "Teen Pop", "Club/Dance"]
 
 ## How it works
 
@@ -26,8 +25,7 @@ Given an `(artist)` and an `(album)`, it:
 3. Loads `http://www.allmusic.com/artist/(best artist match)/discography`
 4. Finds the (best album match) between (album) and the albums listed
 5. Loads `http://www.allmusic.com/album/(best album match)`
-6. Sets `genre` to be the first genre
-7. Sets `style` to be the first style
+6. Gets 'genres' and 'styles'
 
 'Best' match is defined as the match with the highest [Jaro-Winkler distance](https://en.wikipedia.org/wiki/Jaro–Winkler_distance) from the given artist or album.
 
@@ -40,6 +38,7 @@ This is an early release. There are exactly three test cases. I would be stunned
 0.1 Initial release
 0.2 Add 'genres' and 'styles' attributes to return list of all
 0.3 Improve recovery from bad searchs
+0.4 'Initialise' gets meta. Added tests. Clean code.
 
 ## TODO
 
