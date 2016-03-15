@@ -9,3 +9,4 @@ doc
 .bundle
 rjl-allmusic-0.2.gem
 bin/test_allmusic.rb
+rjl-allmusic-0.4.gem
