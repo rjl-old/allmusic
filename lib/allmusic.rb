@@ -7,22 +7,27 @@ require 'logger'
 file = File.open('allmusic.log', File::CREAT)
 $log = Logger.new( file )
 
-# Allmusic.com client
-# @param [String]
+# Allmusic.com client that returns 'genre' and 'style' information for a given album artist and name.
 class Allmusic
 
   ARTIST_SEARCH_URL = "http://www.allmusic.com/search/artists/"
 
+  # @param artist [String] The name of the album artist e.g. "Spice Girls"
+  # @param album [String] The name of the album e.g. "Spiceworld"
   def initialize( artist = nil, album = nil )
     @artist = artist
     @album  = album
     @metadata = get_metadata( @artist, @album )
   end
 
+  # Return the album genres
+  # @return [List of String] the genres
   def genres
     return @metadata[:genres]
   end
 
+  # Return the album styles
+  # @return [List of String] the styles
   def styles
     return @metadata[:styles]
   end
